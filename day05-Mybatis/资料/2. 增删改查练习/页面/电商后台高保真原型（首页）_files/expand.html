@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0099)https://www.pmdaniu.com/storages/122645/74ccff58678d80583ea43a55547173eb-1818/resources/expand.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link type="text/css" href="./default.css" rel="Stylesheet">
+    <script type="text/javascript" src="./jquery-1.7.1.min.js.下载"></script>
+    <script type="text/javascript" src="./messagecenter.js.下载"></script>
+    <script type="text/javascript">
+<!--
+            $(document).ready(function () {
+                $axure.messageCenter.addMessageListener(messageCenter_message);
+                function messageCenter_message(message, data) {
+                    if(message == 'collapseFrameOnLoad') {
+                        setTimeout(function() {
+                            $('#maximizePanel').animate({
+                                top:'-' + maxPanelHeight + 'px'
+                            }, 300);
+                        }, 2000);
+                    }
+                }
+                $axure.messageCenter.postMessage('getCollapseFrameOnLoad');
+
+                if(MOBILE_DEVICE) {
+                    $('#maximizePanel').height('45px');
+                }
+                var maxPanelHeight = $('#maximizePanel').height();
+
+                $('#maximizePanel').click(function () {
+                    $(this).removeClass('maximizePanelOver');
+                    $axure.messageCenter.postMessage('expandFrame');
+                });
+
+                if(!MOBILE_DEVICE) {
+                    $('#maximizePanel').mouseenter(function() {
+                        $(this).addClass('maximizePanelOver');
+                    });
+                    $('#maximizePanel').mouseout(function() {
+                        if($(this).hasClass('maximizePanelOver')) {
+                            $(this).animate({
+                                top:'-' + maxPanelHeight + 'px'
+                            }, 300);
+                        }
+                        $(this).removeClass('maximizePanelOver');
+                    });
+                    $('#maximizePanelOver').mouseenter(function() {
+                        $('#maximizePanel').animate({
+                            top:'0px'
+                        }, 100);
+                    });
+                }
+            });
+        --></script>
+</head>
+<body style="background-color: transparent;">
+    <div id="maximizePanelOver">
+        <div id="maximizePanel" class="maximizePanel" title="Expand" style="">
+        </div>
+    </div>
+
+</body></html>

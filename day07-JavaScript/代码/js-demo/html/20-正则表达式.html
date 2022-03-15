@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // 规则：单词字符，6~12
+
+    var reg = /^\w{6,12}$/;
+
+    var str = "abcccc";
+
+    var flag = reg.test(str);
+    alert(flag);
+</script>
+</body>
+</html>

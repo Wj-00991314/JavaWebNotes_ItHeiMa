@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<!-- saved from url=(0314)https://www.pmdaniu.com/storages/122645/74ccff58678d80583ea43a55547173eb-1818/start.html?_d=Mon%20May%2017%202021%2022:21:44%20GMT+0800%20(%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4)#p=%E7%94%B5%E5%95%86%E5%90%8E%E5%8F%B0%E9%AB%98%E4%BF%9D%E7%9C%9F%E5%8E%9F%E5%9E%8B%EF%BC%88%E9%A6%96%E9%A1%B5%EF%BC%89 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>电商后台高保真原型（首页）</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link type="text/css" href="./电商后台高保真原型（首页）_files/reset.css" rel="Stylesheet">
+    <link type="text/css" href="./电商后台高保真原型（首页）_files/default.css" rel="Stylesheet">
+    <!--<link href='https://fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet' type='text/css'>-->
+
+    <script type="text/javascript">
+        if (location.href.toString().indexOf('file://localhost/') == 0) {
+            location.href = location.href.toString().replace('file://localhost/', 'file:///');
+        }
+    </script>
+
+    <!-- 8.0.0.3377 -->
+<script src="./电商后台高保真原型（首页）_files/jquery-1.7.1.min.js.下载"></script>
+<script src="./电商后台高保真原型（首页）_files/startPre.js.下载"></script>
+<script src="./电商后台高保真原型（首页）_files/document.js.下载"></script>
+
+    <style type="text/css">
+
+#outerContainer {
+	width:1000px;
+	height:1500px;
+}
+
+.vsplitbar {
+    width: 3px;
+    /*background: #B9B9B9;*/
+    border-right: 1px solid #8f949a;
+}
+
+.vsplitbar:hover, .vsplitbar.active {
+    background: #8f949a;
+}
+
+#rightPanel {
+    background-color: White;
+}
+
+/*#leftPanel {
+    min-width: 120px;
+}*/
+
+.splitterMask {
+   position:absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   background-image: url(resources/images/transparent.gif);
+   z-index: 20000;
+}
+
+    </style>
+    <script type="text/javascript" language="JavaScript"><!--
+        var SITEMAP_COLLAPSE_VAR_NAME = 'c';
+        var PLUGIN_VAR_NAME = 'g';
+        var FOOTNOTES_VAR_NAME = 'fn';
+        var ADAPTIVE_VIEW_VAR_NAME = 'view';
+        var lastLeftPanelWidth = 295;
+        var toolBarOnly = true;
+
+        // isolate scope
+        (function() {
+            setUpController();
+            
+            var configuration = $axure.document.configuration;
+            var _settings = {};
+            _settings.projectId = configuration.prototypeId;
+            _settings.isAxshare = configuration.isAxshare;
+            _settings.loadFeedbackPlugin = configuration.loadFeedbackPlugin;
+            var cHash = getHashStringVar(SITEMAP_COLLAPSE_VAR_NAME);
+            _settings.startCollapsed = cHash == "1";
+            if(cHash == "2") closePlayer();
+            var gHash = getHashStringVar(PLUGIN_VAR_NAME);
+            if(gHash == "") gHash = 1;
+            _settings.startPluginGid = gHash;
+
+            $axure.player.settings = _settings;
+
+            $(window).bind('load', function() {
+                if(CHROME_5_LOCAL && !$('body').attr('pluginDetected')) {
+                    window.location = 'resources/chrome/chrome.html';
+                }
+            });
+
+            $(document).ready(function() {
+                $axure.page.bind('load.start', mainFrame_onload);
+                $axure.messageCenter.addMessageListener(messageCenter_message);
+
+                $(document).on('pluginShown', function (event, data) {
+                    setVarInCurrentUrlHash('g', data ? data : '');
+                });
+
+                $(document).on('pluginCreated', function(event, data) {
+                    if($axure.player.settings.startPluginGid == data) {
+                        $axure.player.showPlugin(data);
+                    }
+                });
+
+                if($axure.player.settings.loadFeedbackPlugin) {
+                    if($axure.player.settings.isAxshare) {
+                        $axure.utils.loadJS('/Scripts/plugins/feedback/feedback8.js');
+                    } else {
+                        $axure.utils.loadJS('http://share.axure.com/Scripts/plugins/feedback/feedback8.js');
+                    }
+                }
+
+                if(navigator.userAgent.indexOf("MSIE") >= 0) $('#outerContainer').width('100%');
+                initialize();
+                if($axure.player.settings.startCollapsed) $('#outerContainer').splitter({ sizeLeft: 0 });
+                else $('#outerContainer').splitter({ sizeLeft: lastLeftPanelWidth });
+                $('#leftPanel').width(lastLeftPanelWidth);
+                
+                $(window).resize(function() { resizeContent(); });
+
+                $('#maximizePanelContainer').hide();
+
+                initializeLogo();
+
+                $(window).resize();
+                resizeContent();
+                
+                $axure.player.collapseToBar();
+
+                if($axure.player.settings.startCollapsed) {
+                    collapse();
+                    $('#leftPanel').width(0);
+                }
+
+                if(MOBILE_DEVICE) {
+                    $('#interfaceControlFrameMinimizeContainer').height('45px');
+                    $('#interfaceControlFrameMinimizeContainer a').height('45px');
+                    $('#interfaceControlFrameHeaderContainer').css('margin-top','45px');
+                    $('#interfaceControlFrameCloseContainer a').css('padding','10px 0px');
+                    $('#maximizePanelContainer').height('45px');//.css('top','inherit').css('bottom','0px');
+
+                    $('body').removeClass('hashover');
+
+                    if(IOS) {
+                        $('#rightPanel').css('overflow', 'auto').css('-webkit-overflow-scrolling', 'touch').css('-ms-overflow-x', 'hidden');
+
+                        window.addEventListener("orientationchange", function() {
+                            var viewport = document.querySelector("meta[name=viewport]");
+                            //so iOS doesn't zoom when switching back to portrait
+                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0');
+                            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+                            resizeContent();
+                        }, false);
+
+                        $axure.page.bind('load.start', function() {
+                            resizeContent();
+                        });
+                    }
+                }
+
+            });
+
+            function initialize() {
+                var legacyQString = getQueryString("Page");
+                if (legacyQString.length > 0) {
+                    location.href = location.href.substring(0, location.href.indexOf("?")) + "#p=" + legacyQString;
+                    return;
+                }
+
+                var mainFrame = document.getElementById("mainFrame");
+                //if it's local file on safari, test if we can access mainframe after its loaded
+                if(SAFARI && document.location.href.indexOf('file://') >= 0) {
+                    $(mainFrame).load(function () {
+                        var canAccess;
+                        try {
+                            var mainFrameWindow = mainFrame.contentWindow || mainFrame.contentDocument;
+                            mainFrameWindow['safari_file_CORS'] = 'Y';
+                            canAccess = mainFrameWindow['safari_file_CORS'] === 'Y';
+                        } catch(err) {
+                            canAccess = false;
+                        }
+
+                        if(!canAccess) window.location = 'resources/chrome/safari.html';
+                    });
+                }
+
+                mainFrame.contentWindow.location.href = getInitialUrl();
+            }
+
+            function initializeLogo() {
+                if($axure.document.configuration.logoImagePath) {
+                    var image = new Image();
+                    image.onload = function() {
+                        $('#logoImage').css('max-width', this.width + 'px');
+                        $axure.player.resizeContent();
+                    };
+                    image.src = $axure.document.configuration.logoImagePath;
+                
+                    $('#interfaceControlFrameLogoImageContainer').html('<img id="logoImage" src="" />');
+                    $('#logoImage').attr('src', $axure.document.configuration.logoImagePath).load(function() { resizeContent(); });
+                } else $('#interfaceControlFrameLogoImageContainer').hide();
+
+                if ($axure.document.configuration.logoImageCaption) {
+                    $('#interfaceControlFrameLogoCaptionContainer').html($axure.document.configuration.logoImageCaption);
+                } else $('#interfaceControlFrameLogoCaptionContainer').hide();
+
+                if(!$('#interfaceControlFrameLogoImageContainer').is(':visible') && !$('#interfaceControlFrameLogoCaptionContainer').is(':visible')) {
+                    $('#interfaceControlFrameLogoContainer').hide();
+                }
+            }
+
+            var resizeContent = $axure.player.resizeContent = function() {
+                var newHeight = $(window).height();
+                var newWidth = $(window).width();
+
+                var controlContainerHeight = newHeight;// - 30;
+                if($('#interfaceControlFrameLogoContainer').is(':visible')) controlContainerHeight -= $('#interfaceControlFrameLogoContainer').outerHeight();// + 16;
+
+                $('#outerContainer').height(newHeight).width(newWidth);
+                $('.vsplitbar').height(newHeight);
+                $('#leftPanel').height(newHeight);
+                $('#interfaceControlFrame').height(newHeight);
+                $('#interfaceControlFrameContainer').height(newHeight);
+                $('#interfaceControlFrameHostContainer').height(controlContainerHeight);
+
+                $('#rightPanel').height(newHeight);
+                $('#mainFrame').height(newHeight);
+
+                if($('#leftPanel').is(':visible')) $('#rightPanel').width($(window).width() - $('#leftPanel').width() - 1);// $('.vsplitbar').width());
+                else $('#rightPanel').width($(window).width());
+
+                $(document).trigger('ContainerHeightChange',[controlContainerHeight]);
+
+                if(MOBILE_DEVICE) {
+                    if(!(getHashStringVar(ADAPTIVE_VIEW_VAR_NAME).length > 0)) $axure.messageCenter.postMessage('setAdaptiveViewForSize', {'width':newWidth, 'height':$('#rightPanel').height()});
+                }
+            }
+
+            var collapseToBar = $axure.player.collapseToBar = function() {
+                lastLeftPanelWidth = $('#leftPanel').width();
+                $('#leftPanel').width('55px');
+                $('.vsplitbar').hide();
+                $('#rightPanel').width($(window).width() - $('#leftPanel').width());
+                $(window).resize();
+                $('#outerContainer').trigger('resize');
+                toolBarOnly = true;
+            }
+
+            var expandFromBar = $axure.player.expandFromBar = function() {
+                if($('.vsplitbar').is(':visible')) return;
+
+                $('#leftPanel').width(lastLeftPanelWidth);
+                $('.vsplitbar').show();
+                $('#rightPanel').width($(window).width() - $('#leftPanel').width() - 1);// $('.vsplitbar').width());
+                $(window).resize();
+                $('#outerContainer').trigger('resize');
+                toolBarOnly = false;
+            }
+
+        })();
+
+        function messageCenter_message(message, data) {
+            if(message == 'expandFrame') expand();
+            else if(message == 'getCollapseFrameOnLoad' && $axure.player.settings.startCollapsed && !MOBILE_DEVICE) $axure.messageCenter.postMessage('collapseFrameOnLoad');
+        }
+
+        
+        function getInitialUrl() {
+            var pageName = getHashStringVar("p");
+            if(pageName.length > 0) return pageName + ".html";
+            else {
+                var url = getFirstPageUrl($axure.document.sitemap.rootNodes);
+                return (url ? url : "about:blank");
+            }
+        }
+
+        function getFirstPageUrl(nodes) {
+            for (var i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
+                if (node.url) return node.url;
+                else {
+                    var hasChildren = (node.children && node.children.length > 0);
+                    if (hasChildren) {
+                        var url = getFirstPageUrl(node.children);
+                        if (url) return url;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function closePlayer() {
+            if($axure.page.location) window.location.href = $axure.page.location;
+            else {
+                var pageFile = getInitialUrl();
+                var currentLocation = window.location.toString();
+                window.location.href = currentLocation.substr(0, currentLocation.lastIndexOf("/") + 1) + pageFile;
+            }
+        }
+
+        function replaceHash(newHash) {
+            var currentLocWithoutHash = window.location.toString().split('#')[0];
+
+            //We use replace so that every hash change doesn't get appended to the history stack.
+            //We use replaceState in browsers that support it, else replace the location
+            if(typeof window.history.replaceState != 'undefined') {
+                try {
+                    //Chrome 45 (Version 45.0.2454.85 m) started throwing an error here when generated locally (this only happens with sitemap open) which broke all interactions.
+                    //try catch breaks the url adjusting nicely when the sitemap is open, but all interactions and forward and back buttons work.
+                    //Uncaught SecurityError: Failed to execute 'replaceState' on 'History': A history state object with URL 'file:///C:/Users/Ian/Documents/Axure/HTML/Untitled/start.html#p=home' cannot be created in a document with origin 'null'.
+                    window.history.replaceState(null, null, currentLocWithoutHash + newHash);
+                } catch(ex) {}
+            } else {
+                window.location.replace(currentLocWithoutHash + newHash);
+            }
+        }
+
+        function collapse() {
+            setVarInCurrentUrlHash('c', 1);
+            if(!toolBarOnly) lastLeftPanelWidth = $('#leftPanel').width();
+
+            $('#maximizePanelContainer').show();
+            $('#leftPanel').hide();
+            $('.vsplitbar').hide();
+            $('#rightPanel').width($(window).width());
+            $(window).resize();
+            $('#outerContainer').trigger('resize');
+
+            $(document).trigger('sidebarCollapse');
+
+            if(MOBILE_DEVICE) {
+                $('#maximizePanelContainer').animate({
+                    top:$('#rightPanel').height() - $('#maximizePanelContainer').height()
+                }, 300, 'swing', function() {
+                    $('#maximizePanelContainer').css('top', 'inherit').css('bottom', '0px');
+                });
+            }
+        }
+
+        function expand() {
+            if(MOBILE_DEVICE) {
+                $('#maximizePanelContainer').css('top', '0px').css('bottom', 'inherit');
+            }
+
+            deleteVarFromCurrentUrlHash('c');
+            $('#maximizePanelContainer').hide();
+            $('#leftPanel').width(lastLeftPanelWidth);
+            $('#leftPanel').show();
+            if(!toolBarOnly) {
+                $('.vsplitbar').show();
+                $('#rightPanel').width($(window).width() - $('#leftPanel').width() - 1);
+            } else {
+                $axure.player.collapseToBar();
+            }
+            $(window).resize();
+            $('#outerContainer').trigger('resize');
+
+            $(document).trigger('sidebarExpanded');
+        }
+
+
+        function mainFrame_onload() {
+            if($axure.page.pageName) document.title = $axure.page.pageName;
+        }
+
+        function getQueryString(query) {
+            var qstring = self.location.href.split("?");
+            if(qstring.length < 2) return "";
+            return GetParameter(qstring, query);
+        }
+        
+        function GetParameter(qstring, query) {
+            var prms = qstring[1].split("&");
+            var frmelements = new Array();
+            var currprmeter, querystr = "";
+
+            for(var i = 0; i < prms.length; i++) {
+                currprmeter = prms[i].split("=");
+                frmelements[i] = new Array();
+                frmelements[i][0] = currprmeter[0];
+                frmelements[i][1] = currprmeter[1];
+            }
+
+            for(j = 0; j < frmelements.length; j++) {
+                if(frmelements[j][0].toLowerCase() == query.toLowerCase()) {
+                    querystr = frmelements[j][1];
+                    break;
+                }
+            }
+            return querystr;
+        }
+        
+        function getHashStringVar(query) {
+            var qstring = self.location.href.split("#");
+            if(qstring.length < 2) return "";
+            return GetParameter(qstring, query);
+        }
+
+        function setHashStringVar(currentHash, varName, varVal) {
+            var varWithEqual = varName + '=';
+            var poundVarWithEqual = varVal === '' ? '' :  '#' + varName + '=' + varVal;
+            var ampVarWithEqual = varVal === '' ? '' :  '&' + varName + '=' + varVal;
+            var hashToSet = '';
+
+            var pageIndex = currentHash.indexOf('#' + varWithEqual);
+            if(pageIndex == -1) pageIndex = currentHash.indexOf('&' + varWithEqual);
+            if(pageIndex != -1) {
+                var newHash = currentHash.substring(0, pageIndex);
+
+                newHash = newHash == '' ? poundVarWithEqual : newHash + ampVarWithEqual;
+
+                var ampIndex = currentHash.indexOf('&', pageIndex + 1);
+                if(ampIndex != -1) {
+                    newHash = newHash == '' ? '#' + currentHash.substring(ampIndex + 1) : newHash + currentHash.substring(ampIndex);
+                }
+                hashToSet = newHash;
+            } else if(currentHash.indexOf('#') != -1) {
+                hashToSet = currentHash + ampVarWithEqual;
+            } else {
+                hashToSet = poundVarWithEqual;
+            }
+
+            if(hashToSet != '' || varVal == '') {
+                return hashToSet;
+            }
+
+            return null;
+        }
+
+        function setVarInCurrentUrlHash(varName, varVal) {
+            var newHash = setHashStringVar(window.location.hash, varName, varVal);
+
+            if(newHash != null) {
+                replaceHash(newHash);
+            }
+        }
+
+        function deleteHashStringVar(currentHash, varName) {
+            var varWithEqual = varName + '=';
+
+            var pageIndex = currentHash.indexOf('#' + varWithEqual);
+            if(pageIndex == -1) pageIndex = currentHash.indexOf('&' + varWithEqual);
+            if(pageIndex != -1) {
+                var newHash = currentHash.substring(0, pageIndex);
+
+                var ampIndex = currentHash.indexOf('&', pageIndex + 1);
+
+                //IF begin of string....if none blank, ELSE # instead of & and rest
+                //IF in string....prefix + if none blank, ELSE &-rest
+                if(newHash == '') { //beginning of string
+                    newHash = ampIndex != -1 ? '#' + currentHash.substring(ampIndex + 1) : '';
+                } else { //somewhere in the middle
+                    newHash = newHash + (ampIndex != -1 ? currentHash.substring(ampIndex) : '');
+                }
+
+                return newHash;
+            }
+
+            return null;
+        }
+
+        function deleteVarFromCurrentUrlHash(varName) {
+            var newHash = deleteHashStringVar(window.location.hash, varName);
+
+            if(newHash != null) {
+                replaceHash(newHash);
+            }
+        }
+    --></script>
+    
+    <link type="text/css" rel="Stylesheet" href="./电商后台高保真原型（首页）_files/sitemap.css">
+    <link type="text/css" rel="Stylesheet" href="./电商后台高保真原型（首页）_files/page_notes.css">
+    <link type="text/css" rel="Stylesheet" href="./电商后台高保真原型（首页）_files/debug.css">
+    <script src="./电商后台高保真原型（首页）_files/startPost.js.下载"></script>
+
+
+    <!--<link type="text/css" rel="Stylesheet" href="plugins/recordplay/styles/recordplay.css" />
+    <script type="text/javascript" src="plugins/recordplay/recordplay.js"></script>-->
+    
+
+</head>
+<body scroll="no" class="hashover">
+    <div id="outerContainer" style="position: relative; height: 833px; width: 1920px;">
+
+        <div id="leftPanel" style="position: absolute; z-index: 1; left: 0px; width: 55px; height: 833px;">
+            <div id="interfaceControlFrame" style="height: 833px;">
+                <div id="interfaceControlFrameMinimizeContainer">
+                    <a title="Collapse" id="interfaceControlFrameMinimizeButton" onclick="collapse();">&nbsp;</a>
+                </div>
+                <div id="interfaceControlFrameHeaderContainer">
+                    <ul id="interfaceControlFrameHeader"><li id="sitemapHostBtn"><a pluginid="sitemapHost" class="">PAGES</a></li><li id="pageNotesHostBtn"><a pluginid="pageNotesHost">NOTES</a></li><li id="debugHostBtn"><a pluginid="debugHost">CONSOLE</a></li></ul>
+                </div>
+                <div id="interfaceControlFrameContainer" style="height: 833px;">
+                    <div id="interfaceControlFrameLogoContainer">
+                        <div id="interfaceControlFrameLogoImageContainer"><img id="logoImage" src="./电商后台高保真原型（首页）_files/logo.png" style="max-width: 130px;"></div>
+                        <div id="interfaceControlFrameLogoCaptionContainer">Axure产品原型官网<br>www.pmyuanxing.com</div>
+                    </div>
+                    <div id="interfaceControlFrameHostContainer" style="height: 656px;">
+                    <div id="sitemapHost" style="display: none;"><div id="sitemapHeader" '="" class="sitemapHeader" style=""><div id="sitemapToolbar" class="sitemapToolbar"><div class="pluginNameHeader">PAGES</div><div class="pageNameHeader" style="padding-right: 55px;">电商后台高保真原型（首页）</div><div class="pageButtonHeader"><a id="linksButton" title="Get Links" class="sitemapToolbarButton"></a><a id="highlightInteractiveButton" title="Highlight interactive elements" class="sitemapToolbarButton"></a></div></div><div id="sitemapLinksContainer" class="sitemapLinkContainer" style="display: none;"><div style="margin-bottom:10px;">Generate sharable URLs</div><input id="sitemapLinkWithPlayer" type="text" class="sitemapLinkField"><div class="sitemapOptionContainer"><div><label><input type="radio" name="sitemapToggle" value="withoutmap">Without Sidebar</label></div><div style="margin-top:10px;"><label><input type="radio" name="sitemapToggle" value="withmap">With Sidebar</label><div id="sitemapOptionsDiv" style="display: none;"><div class="sitemapUrlOption"><label><input type="checkbox" id="minimizeBox" disabled="disabled">Minimize sidebar</label></div><div class="sitemapUrlOption"><label><input type="checkbox" id="collapseBox" disabled="disabled">Pages closed</label></div><div class="sitemapUrlOption"><label><input type="checkbox" id="footnotesBox" disabled="disabled">Hide footnotes</label></div><div class="sitemapUrlOption"><label><input type="checkbox" id="highlightBox" disabled="disabled">Highlight interactive elements</label></div></div></div></div></div></div><div id="sitemapTreeContainer" style="height: 805px;"><div id="searchDiv" style=""><input id="searchBox" style="" type="text" class="searchBoxHint"></div><ul class="sitemapTree" style="clear:both;"><li class="sitemapNode sitemapLeafNode"><div class=""><div class="sitemapPageLinkContainer" style="margin-left:21px"><a class="sitemapPageLink" nodeurl="index.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">index</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div class="sitemapHighlight"><div class="sitemapPageLinkContainer" style="margin-left:21px"><a class="sitemapPageLink" nodeurl="电商后台高保真原型（首页）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">电商后台高保真原型（首页）</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">商品管理</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="商品管理-首页.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">商品管理-首页</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="商品列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">商品列表</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="新增商品（1）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增商品（1）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="新增商品（2）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增商品（2）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="商品评价.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">商品评价</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="商品回收站.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">商品回收站</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="商品分类.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">商品分类</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增分类.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增分类</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑分类.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑分类</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="分类详情.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">分类详情</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="商品品牌.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">商品品牌</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增品牌.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增品牌</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑品牌.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑品牌</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="品牌详情.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">品牌详情</span></a></div></div></li></ul></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="商品规格.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">商品规格</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">订单管理</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="订单管理-首页.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单管理-首页</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="订单列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="订单详情（待付款_）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单详情（待付款 ）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="订单详情（待发货）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单详情（待发货）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="订单详情（待收货）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单详情（待收货）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="订单详情（待评价）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单详情（待评价）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="订单详情（完成）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单详情（完成）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="订单详情（已取消）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单详情（已取消）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="批量发货（订单）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">批量发货（订单）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="打印发货单（订单）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">打印发货单（订单）</span></a></div></div></li></ul></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="订单设置.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">订单设置</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="运单列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">运单列表</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="退货列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="退货申请-待审核.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货申请-待审核</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="退货申请-待收货.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货申请-待收货</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="退货申请-待退款.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货申请-待退款</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="退货申请-待到账.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货申请-待到账</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="退货申请-完成.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货申请-完成</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="退货申请-拒绝退货.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货申请-拒绝退货</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="批量收货（退货）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">批量收货（退货）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="批量退款（退货）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">批量退款（退货）</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="换货列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">换货列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="换货申请-待审核.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">换货申请-待审核</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="换货申请-待收货.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">换货申请-待收货</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="换货申请-待发新货.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">换货申请-待发新货</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="换货申请-待用户收货.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">换货申请-待用户收货</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="换货申请-完成.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">换货申请-完成</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="退货申请-拒绝换货.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退货申请-拒绝换货</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="批量收货（换货）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">批量收货（换货）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="批量发货（换货）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">批量发货（换货）</span></a></div></div></li></ul></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="退换货原因.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">退换货原因</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="取消订单原因.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">取消订单原因</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">物流管理</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="物流管理-首页.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">物流管理-首页</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="运费模板.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">运费模板</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增运费模板.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增运费模板</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑运费模板.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑运费模板</span></a></div></div></li></ul></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="包裹中心.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">包裹中心</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="快递公司.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">快递公司</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="快递公司详情.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">快递公司详情</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="地址列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">地址列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增地址.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增地址</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑地址.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑地址</span></a></div></div></li></ul></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">促销管理</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="促销管理-首页.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">促销管理-首页</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="限时购列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">限时购列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增限时购活动.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增限时购活动</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑限时购活动.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑限时购活动</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="设置商品.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">设置商品</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="优惠券列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">优惠券列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增优惠券.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增优惠券</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑优惠券.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑优惠券</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="广告落地页.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">广告落地页</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增落地页（1）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增落地页（1）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增落地页（2）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增落地页（2）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增落地页（3）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增落地页（3）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="促单品转化模板.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">促单品转化模板</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="促店铺引流模板.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">促店铺引流模板</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="banner__.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">Banner列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="__banner.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增Banner</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="__banner_1.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑Banner</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="banner___.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">Banner详情页</span></a></div></div></li></ul></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">文章管理</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="文章管理首页.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">文章管理首页</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="文章列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">文章列表</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增文章.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增文章</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑文章.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑文章</span></a></div></div></li></ul></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="文章分类.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">文章分类</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="文章评论列表.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">文章评论列表</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">权限设置</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="权限管理-首页.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">权限管理-首页</span></a></div></div></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="账号管理.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">账号管理</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增账号.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增账号</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑账号.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑账号</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="账号详情.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">账号详情</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="角色管理.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">角色管理</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增角色.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增角色</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑角色.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑角色</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="角色详情.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">角色详情</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="功能管理.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">功能管理</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增功能.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增功能</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑功能.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑功能</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="功能详情.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">功能详情</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:26px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><a class="sitemapPageLink" nodeurl="组织管理.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">组织管理</span></a></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="新增组织.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">新增组织</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="编辑组织.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">编辑组织</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:55px"><a class="sitemapPageLink" nodeurl="组织详情.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">组织详情</span></a></div></div></li></ul></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">个人信息</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="个人信息（首页）.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">个人信息（首页）</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="我的信息.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">我的信息</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="更换手机号.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">更换手机号</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="修改密码.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">修改密码</span></a></div></div></li></ul></li><li class="sitemapNode sitemapExpandableNode"><div><div class="sitemapPageLinkContainer" style="margin-left:9px"><a class="sitemapPlusMinusLink"><span class="sitemapMinus"></span></a><span class="sitemapPageIcon sitemapFolderIcon"></span><span class="sitemapPageName">登录</span></div></div><ul><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="用户登录.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">用户登录</span></a></div></div></li><li class="sitemapNode sitemapLeafNode"><div><div class="sitemapPageLinkContainer" style="margin-left:38px"><a class="sitemapPageLink" nodeurl="忘记密码.html"><span class="sitemapPageIcon"></span><span class="sitemapPageName">忘记密码</span></a></div></div></li></ul></li></ul></div></div><div id="pageNotesHost" style="display: none;"><div id="pageNotesHeader" '="" class="sitemapHeader" style=""><div id="pageNotesToolbar" class="sitemapToolbar"><div class="pluginNameHeader">NOTES</div><div class="pageNameHeader">电商后台高保真原型（首页）</div><div class="pageButtonHeader"><a id="notesPreviousButton" title="Previous Page" class="sitemapToolbarButton prevPageButton"></a><a id="notesNextButton" title="Next Page" class="sitemapToolbarButton nextPageButton"></a><a id="footnotesButton" title="Toggle Footnotes" class="sitemapToolbarButton sitemapToolbarButtonSelected"></a></div></div></div><div id="pageNotesScrollContainer" style="height: 805px;"><div id="pageNotesContainer"><div id="pageNotesEmptyState" class="emptyStateContainer"><div class="emptyStateTitle">No notes for this page.</div><div class="emptyStateContent">Notes added in Axure RP will appear here.</div><div class="dottedDivider"></div></div><span id="pageNotesContent"></span></div></div></div><div id="debugHost" style="display: none;"><div id="debugHeader" '="" class="sitemapHeader" style=""><div id="debugToolbar" class="sitemapToolbar"><div class="pluginNameHeader">CONSOLE</div><div class="pageNameHeader">电商后台高保真原型（首页）</div></div></div><div id="debugScrollContainer" style="height: 805px;"><div id="debugContainer"><div id="variablesContainer"><div id="variablesClearLinkContainer" class="debugLinksContainer"><a id="variablesClearLink" title="Reset Variables">Reset Variables</a></div><div id="variablesDiv"><div class="variableDiv"><span class="variableName">edit</span><br>(blank)</div><div class="variableDiv"><span class="variableName">tips</span><br>(blank)</div><div class="variableDiv"><span class="variableName">state</span><br>(blank)</div><div class="variableDiv"><span class="variableName">step</span><br>(blank)</div><div class="variableDiv"><span class="variableName">type</span><br>(blank)</div><div class="variableDiv"><span class="variableName">copyright</span><br>Copyright ©Axure产品原型  专注于Axure原型设计！ QQ交流群 953179322</div><div class="variableDiv"><span class="variableName">menu1</span><br>(blank)</div><div class="variableDiv"><span class="variableName">menu2</span><br>(blank)</div><div class="variableDiv"><span class="variableName">menu3</span><br>(blank)</div><div class="variableDiv"><span class="variableName">content_width</span><br>(blank)</div><div class="variableDiv"><span class="variableName">content_height</span><br>(blank)</div><div class="variableDiv"><span class="variableName">content_right</span><br>(blank)</div><div class="variableDiv"><span class="variableName">content_bottom</span><br>(blank)</div><div class="variableDiv"><span class="variableName">content_left</span><br>(blank)</div><div class="variableDiv"><span class="variableName">content_top</span><br>(blank)</div><div class="variableDiv"><span class="variableName">nav</span><br>(blank)</div><div class="variableDiv"><span class="variableName">gudong_id</span><br>0</div><div class="variableDiv"><span class="variableName">id</span><br>(blank)</div><div class="variableDiv"><span class="variableName">head</span><br>(blank)</div><div class="variableDiv"><span class="variableName">head_color</span><br>(blank)</div><div class="variableDiv"><span class="variableName">move</span><br>(blank)</div><div class="variableDiv"><span class="variableName">move_top</span><br>(blank)</div><div class="variableDiv"><span class="variableName">tag</span><br>(blank)</div><div class="variableDiv"><span class="variableName">list_id</span><br>(blank)</div><div class="variableDiv"><span class="variableName">box_id</span><br>(blank)</div><div class="variableDiv"><span class="variableName">news_title</span><br>(blank)</div><div class="variableDiv"><span class="variableName">data</span><br>(blank)</div><div class="variableDiv"><span class="variableName">name</span><br>(blank)</div><div class="variableDiv"><span class="variableName">sanjiid</span><br>(blank)</div></div></div><div class="dottedDivider"></div><div id="traceContainer"><div id="traceClearLinkContainer" class="debugLinksContainer" style="display: block;"><a id="traceClearLink" title="Clear Trace">Clear Trace</a></div><div id="traceEmptyState" class="emptyStateContainer" style="display: none;"><div class="emptyStateTitle">No interactions in the trace.</div><div class="emptyStateContent">Triggered interactions will appear here.</div><div class="dottedDivider"></div></div><div id="traceDiv"><div class="axEventBlock lastAxEvent"><div class="axTime">下午10:22:26</div><div class="axLabel"> (面包屑（列表页）)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 面包屑背景 to [[Window.width]] x 高 anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">Frame (内联框架)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to [[Window.width-190]] x [[Window.height]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">侧导航 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to 宽 x [[Window.height]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">商品管理-首页 (Page)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">Fire 载入 时 on Frame</div><div class="axAction">Fire 载入 时 on 侧导航</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel"> (面包屑（列表页）)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 面包屑背景 to [[Window.width]] x 高 anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">Frame (内联框架)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to [[Window.width-190]] x [[Window.height]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">侧导航 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to 宽 x [[Window.height]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">商品管理-首页 (Page)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">Fire 载入 时 on Frame</div><div class="axAction">Fire 载入 时 on 侧导航</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">Frame (内联框架)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to [[Window.width]] x [[Window.height-55]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:22:26</div><div class="axLabel">电商后台高保真原型（首页） (Page)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">Fire 载入 时 on Frame</div></div><div class="axEventBlock"><div class="axTime">下午10:22:02</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:22:02</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel"> (面包屑（列表页）)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 面包屑背景 to [[Window.width]] x 高 anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel">Frame (内联框架)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to [[Window.width-190]] x [[Window.height]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel">侧导航 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to 宽 x [[Window.height]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel">商品管理-首页 (Page)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">Fire 载入 时 on Frame</div><div class="axAction">Fire 载入 时 on 侧导航</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel">Frame (内联框架)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 This to [[Window.width]] x [[Window.height-55]] anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:58</div><div class="axLabel">电商后台高保真原型（首页） (Page)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">Fire 载入 时 on Frame</div></div><div class="axEventBlock"><div class="axTime">下午10:21:57</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:57</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:57</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:57</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:57</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:57</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel"> (面包屑（列表页）)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 面包屑背景 to [[Window.width]] x 高 anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">底部版权 (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = 值于 copyright</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">开关 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 开关 为 关</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">开关 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 开关 为 关</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">开关 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 开关 为 关</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">排序编辑器 (文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = "[[(Math.random()*20).toFixe..."</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">确认对话框（弹框） (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">4级-面包屑 (动态面板)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">3级-面包屑 (动态面板)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">2级-面包屑 (动态面板)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">名称-1级-面包屑 (矩形)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:54</div><div class="axLabel">数据列表名称 (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 2</div></div><div class="axEventBlock"><div class="axTime">下午10:21:53</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标单击 时</div><div class="axCase">Case 1</div><div class="axAction">打开 商品品牌 在 Frame</div><div class="axAction">设置 选中状态于 This = "true"</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:53</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:53</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel"> (面包屑（详情页）)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 面包屑背景 to [[Window.width]] x 高 anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel"> (中继器)</div><div class="axEvent">每项加载 时</div><div class="axCase">Case 1<br> (If True)</div><div class="axAction">设置 已上传的图片 image to [[Item.img]]</div><div class="axCase">Case 2<br> (If "[[Item.isLast]]" == "true")</div><div class="axAction">设置 上传图片-list 为 待上传</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel"> (中继器)</div><div class="axEvent">每项加载 时</div><div class="axCase">Case 1<br> (If True)</div><div class="axAction">设置 已上传的图片 image to [[Item.img]]</div><div class="axCase">Case 3<br> (If 值于 edit == "" and "[[Item.state]]" == "隐藏")</div><div class="axAction">隐藏 上传图片-list</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">开关 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">Raise zairushi on 开关</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel"> (多行输入框（200字、680*180px）)</div><div class="axEvent">zairushi</div><div class="axCase">Case 1</div><div class="axAction">设置 值于 edit = ""</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">多行文本输入框（200字） (多行文本框)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1<br> (If True)</div><div class="axAction">设置 文字于 Number = "[[this.text.length]]/200"</div><div class="axAction">Raise zairushi on 多行输入框（200字、680*180px）</div><div class="axCase">Case 2<br> (If 值于 edit 不包含 "编辑")</div><div class="axAction">设置 文字于 多行文本输入框（200字） = ""</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">三级详情页-面包屑 (动态面板)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">二级菜单-面包屑 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 2<br> (If 值于 menu2 == "")</div><div class="axAction">隐藏 二级菜单-面包屑</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">一级菜单-面包屑 (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1<br> (If True)</div><div class="axAction">设置 文字于 名称-一级菜单-面包屑 = 值于 menu1</div><div class="axAction">显示 一级菜单-面包屑</div><div class="axCase">Case 2<br> (If 值于 menu1 == "")</div><div class="axAction">隐藏 一级菜单-面包屑</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">底部版权 (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = 值于 copyright</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">底部版权（详情页） (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">Raise zairushi on 底部版权（详情页）</div><div class="axAction">移动 白色背景 to (,70)</div><div class="axAction">设置尺寸于 白色背景 to 宽 x [[this.top-90]] anchor 左上角</div><div class="axAction">将 This 置于底层</div><div class="axAction">将 白色背景 置于底层</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel"> (上传图片)</div><div class="axEvent">zairushi</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 (上传图片)/默认提示语（上传图片） = "支持JPG、PNG、GIF格式的图片，大小请小于200..."</div><div class="axAction">设置 文字于 (上传图片)/上传图片数量 = "上传logo"</div></div><div class="axEventBlock"><div class="axTime">下午10:21:52</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标单击 时</div><div class="axCase">Case 1</div><div class="axAction">打开 新增品牌 在 Frame</div><div class="axAction">设置 选中状态于 This = "true"</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:51</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:51</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:51</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:51</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:51</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:51</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:51</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:50</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:50</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:50</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:49</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:49</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel"> (面包屑（列表页）)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 面包屑背景 to [[Window.width]] x 高 anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">底部版权 (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = 值于 copyright</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">确认对话框（弹框） (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">数据列表名称 (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 2</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">4级-面包屑 (动态面板)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">3级-面包屑 (动态面板)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">2级-面包屑 (动态面板)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">名称-1级-面包屑 (矩形)</div><div class="axEvent">载入 时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标单击 时</div><div class="axCase">Case 1</div><div class="axAction">打开 商品分类 在 Frame</div><div class="axAction">设置 选中状态于 This = "true"</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:48</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:47</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:47</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:47</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:47</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:47</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:47</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:47</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 移入时</div></div><div class="axEventBlock"><div class="axTime">下午10:21:46</div><div class="axLabel">三级菜单 (动态面板)</div><div class="axEvent">鼠标移出 时</div><div class="axCase">Case 1</div><div class="axAction">设置 图标-三级菜单 为 默认/选中</div></div><div class="axEventBlock"><div class="axTime">下午10:21:46</div><div class="axLabel"> (面包屑（列表页）)</div><div class="axEvent">窗口尺寸改变 时</div><div class="axCase">Case 1</div><div class="axAction">设置尺寸于 面包屑背景 to [[Window.width]] x 高 anchor 左上角</div></div><div class="axEventBlock"><div class="axTime">下午10:21:46</div><div class="axLabel">底部版权 (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div><div class="axAction">设置 文字于 This = 值于 copyright</div></div><div class="axEventBlock"><div class="axTime">下午10:21:46</div><div class="axLabel">输入框提示语（右） (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div></div><div class="axEventBlock"><div class="axTime">下午10:21:46</div><div class="axLabel">输入框提示语（左） (矩形)</div><div class="axEvent">载入 时</div><div class="axCase">Case 1</div></div><div class="axEventBlock"><div class="axTime">下午10:21:46</div><div class="axLabel">范围-快捷日期(年月日) (动态面板)</div><div class="axEvent">载入 时</div><div class="axCase">case 1<br> (If True)</div><div class="axCase">Case 2<br> (If 值于 edit == "")</div><div class="axAction">设置 文字于 快捷开始日期（年月日） = ""</div><div class="axAction">设置 文字于 快捷结束时间（年月日） = ""</div></div></div></div></div></div></div></div>
+                </div>
+                <div id="interfaceControlFrameCloseContainer">
+                    <a title="Close" id="interfaceControlFrameCloseButton" onclick="closePlayer();">CLOSE</a>
+                </div>
+            </div>
+        </div><div class="vsplitbar" unselectable="on" style="z-index: 100; position: absolute; user-select: none; top: 0px; cursor: col-resize; left: 55px; height: 833px; display: none;"><a href="javascript:void(0)" accesskey="" tabindex="0" title="vsplitbar"></a></div>
+        <div id="rightPanel" style="position: absolute; z-index: 1; left: 55px; width: 1864px; height: 833px;">
+            <iframe id="mainFrame" name="mainFrame" width="100%" height="100%" src="./电商后台高保真原型（首页）_files/saved_resource.html" frameborder="0" style="display: block; height: 833px;" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+        </div>
+
+    </div>
+
+    <div id="maximizePanelContainer" style="display: none;">
+        <iframe id="expandFrame" src="./电商后台高保真原型（首页）_files/expand.html" width="100%" height="100%" scrolling="no" allowtransparency="true" frameborder="0"></iframe>
+    </div>
+
+
+
+</body></html>

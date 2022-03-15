@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript演示</title>
+</head>
+<body>
+
+<h2>JavaScript 能做什么</h2>
+
+<p id="demo">JavaScript 能够改变 HTML 内容</p>
+<input type="button" onclick='changeText()' value="点击我">
+<hr>
+<p>JavaScript 能改变图像的 src 属性值</p>
+<input type="button" onclick="on()" value="开灯">
+<img id="myImage" border="0" src="../imgs/off.gif" style="text-align:center;">
+<input type="button" onclick="off()" value="关灯">
+<hr>
+
+
+<p>JavaScript 能够进行表单验证</p>
+用户名：<input id="username" onblur="check()" placeholder="请设置用户名（6~12位）">
+<span id="msg" style="color: red"></span>
+<hr>
+
+
+<script>
+    function changeText(){
+        document.getElementById("demo").innerHTML = "Hello JavaScript!"
+    }
+
+    function on(){
+        document.getElementById('myImage').src='../imgs/on.gif';
+    }
+
+    function off(){
+        document.getElementById('myImage').src='../imgs/off.gif'
+    }
+
+    function check(){
+        var username = document.getElementById('username').value;
+        var reg = /^\w{6,12}$/;
+        var msg = document.getElementById('msg');
+        if (reg.test(username)){
+            msg.innerHTML = "<img src='../imgs/gou.png'  width='25' height='15'  />";
+        }else {
+            msg.innerHTML = "用户名格式有误！";
+        }
+    }
+
+</script>
+
+</body>
+</html>

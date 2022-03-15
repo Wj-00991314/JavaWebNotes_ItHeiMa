@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript演示</title>
+</head>
+<body>
+
+
+
+<input type="button" onclick="on()" value="开灯">
+<img id="myImage" border="0" src="../imgs/off.gif" style="text-align:center;">
+<input type="button" onclick="off()" value="关灯">
+
+
+<script>
+
+    function on(){
+        document.getElementById('myImage').src='../imgs/on.gif';
+    }
+
+    function off(){
+        document.getElementById('myImage').src='../imgs/off.gif'
+    }
+    var x = 0;
+
+    // 根据一个变化的数字，产生固定个数的值； 2  x % 2     3   x % 3
+    //定时器
+    setInterval(function (){
+
+        if(x % 2 == 0){
+            on();
+        }else {
+            off();
+        }
+
+        x ++;
+
+    },1000);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>品牌列表</title>
+    <!--引入vue.js-->
+    <script src="js/vue.js"></script>
+
+    <!--引入 element js css-->
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <script src="element-ui/lib/index.js"></script>
+    <script src="js/axios-0.18.0.js"></script>
+
+
+    <style>
+        .el-table .warning-row {
+            background: oldlace;
+        }
+
+        .el-table .success-row {
+            background: #f0f9eb;
+        }
+
+        .avatar-uploader .el-upload {
+            border: 1px dashed #d9d9d9;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-uploader .el-upload:hover {
+            border-color: #409EFF;
+        }
+
+        .avatar-uploader-icon {
+            font-size: 28px;
+            color: #8c939d;
+            width: 78px;
+            height: 78px;
+            line-height: 78px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 178px;
+            height: 178px;
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+<div id="app">
+
+
+    <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+
+        <el-form-item label="当前状态">
+            <el-select v-model="searchForm.status" placeholder="当前状态">
+                <el-option label="启用" value="1"></el-option>
+                <el-option label="禁用" value="0"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="企业名称">
+            <el-input v-model="searchForm.companyName" placeholder="企业名称"></el-input>
+        </el-form-item>
+        <el-form-item label="品牌名称">
+            <el-input v-model="searchForm.brandName" placeholder="品牌名称"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit()">查询</el-button>
+        </el-form-item>
+    </el-form>
+
+    <el-button type="danger"  @click="delBatch()" plain>批量删除</el-button>
+    <el-button type="primary" @click="dialogVisible = true" plain>新增</el-button>
+
+
+    <template>
+        <el-table
+                :data="tableData"
+                style="width: 100%"
+                :row-class-name="tableRowClassName"
+                @select="checkSelect"
+        >
+            <el-table-column
+                    type="selection"
+                    width="55">
+            </el-table-column>
+            <el-table-column
+                    type="index"
+                    width="50">
+            </el-table-column>
+
+            <el-table-column
+                    align="center"
+                    prop="brandName"
+                    label="品牌名称">
+            </el-table-column>
+
+            <el-table-column
+                    align="center"
+                    prop="companyName"
+                    label="企业名称">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    prop="ordered"
+                    label="排序">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    prop="statusStr"
+                    label="当前状态">
+            </el-table-column>
+
+            <el-table-column
+                    align="center"
+                    prop="operation"
+                    label="操作">
+                <el-button type="primary" size="small" @click="updateBrand()">修改</el-button>
+                <el-button type="danger" size="small">删除</el-button>
+            </el-table-column>
+        </el-table>
+    </template>
+
+    <!--分页工具条-->
+    <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[5, 10,15 , 20]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+    </el-pagination>
+
+
+    <!--添加/修改表单-->
+    <el-dialog
+            title="编辑品牌"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+        <el-form :model="brandForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+
+            <el-form-item label="品牌名称" prop="brandName">
+                <el-input v-model="brandForm.brandName"></el-input>
+            </el-form-item>
+            <el-form-item label="企业名称" prop="companyName">
+                <el-input v-model="brandForm.companyName"></el-input>
+            </el-form-item>
+            <el-form-item label="排序">
+                <el-input v-model="brandForm.ordered"></el-input>
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="brandForm.description"></el-input>
+            </el-form-item>
+            <el-form-item label="状态">
+                <el-switch
+                        :active-value=1
+                        :inactive-value=0
+                        v-model="brandForm.status">
+                </el-switch>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="submitForm('brandForm')">提交</el-button>
+                <el-button @click="dialogVisible = false">取消</el-button>
+            </el-form-item>
+        </el-form>
+    </el-dialog>
+</div>
+
+
+<script>
+    new Vue({
+        el: "#app",
+        methods: {
+            //每页显示条数发生变化
+            handleSizeChange(val) {
+               console.log(val)
+
+            },
+            //当前页发生变化
+            handleCurrentChange(val) {
+                //console.log(`当前页: ${val}`);
+
+            },
+
+            submitForm() {
+                //console.log(JSON.stringify(this.brandForm));
+
+            },
+            //点击查询按钮
+            onSubmit() {
+                // console.log(this.searchForm);
+
+            },
+            handleClose() {
+                this.dialogVisible = false;
+            },
+
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            },
+            //批量删除
+            delBatch(){
+
+
+            },
+            //选中复选框
+            checkSelect(data){
+                //console.log(`选中项数据：${data}`)
+
+            },
+            //修改
+            updateBrand() {
+                //弹出编辑窗口
+                this.dialogVisible = true;
+
+
+            }
+        },
+        data() {
+            return {
+                checkedBrands:[],
+                total: 400,
+                currentPage: 1,
+                pageSize: 5,
+                dialogVisible: false,
+                tableData: [{
+                    id: 1,
+                    brandName: '小米',
+                    companyName: '小米科技有限公司',
+                    ordered: 10,
+                    status: 1,
+                    statusStr: "启用",
+                    description: "小米"
+                }, {
+                    id: 1,
+                    brandName: '小米',
+                    companyName: '小米科技有限公司',
+                    ordered: 10,
+                    status: 1,
+                    statusStr: "启用",
+                    description: "小米"
+                }, {
+                    id: 1,
+                    brandName: '小米',
+                    companyName: '小米科技有限公司',
+                    ordered: 10,
+                    status: 1,
+                    statusStr: "启用",
+                    description: "小米"
+                }, {
+                    id: 1,
+                    brandName: '小米',
+                    companyName: '小米科技有限公司',
+                    ordered: 10,
+                    status: 1,
+                    statusStr: "启用",
+                    description: "小米"
+                }, {
+                    id: 1,
+                    brandName: '小米',
+                    companyName: '小米科技有限公司',
+                    ordered: 10,
+                    status: 1,
+                    statusStr: "启用",
+                    description: "小米"
+                }, {
+                    id: 1,
+                    brandName: '小米',
+                    companyName: '小米科技有限公司',
+                    ordered: 10,
+                    status: 1,
+                    statusStr: "启用",
+                    description: "小米"
+                },],
+                value: '',
+                searchForm: {
+                    companyName: '',
+                    brandName: '',
+                    status: ''
+                },
+                brandForm: {
+                    id: '',
+                    brandName: '',
+                    companyName: '',
+                    ordered: '',
+                    status: '',
+                    description: ""
+                },
+                rules: {
+                    brandName: [
+                        {required: true, message: '请输入品牌名称', trigger: 'blur'},
+                        {min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur'}
+                    ],
+                    companyName: [
+                        {required: true, message: '请输入企业名称', trigger: 'blur'}
+                    ]
+                }
+
+            }
+        }
+    });
+</script>
+</body>
+</html>

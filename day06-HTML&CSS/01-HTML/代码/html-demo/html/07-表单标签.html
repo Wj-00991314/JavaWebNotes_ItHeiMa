@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--
+form：
+    action:指定表单数据提交的URL
+        * 表单项数据要想被提交，则必须指定其name属性
+    method：指定表单提交的方式
+        1. get：默认值
+            * 请求参数会拼接在URL后边
+            * url的长度有限制 4KB
+        2. post：
+            * 请求参数会在http请求协议的请求体中
+            * 请求参数无限制的
+-->
+
+    <form action="#" method="post">
+        <input type="text" name="username">
+        <input type="submit">
+
+    </form>
+
+
+</body>
+</html>
